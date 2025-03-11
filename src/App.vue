@@ -17,6 +17,17 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </header>
 
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BV37MYV1NK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-BV37MYV1NK');
+  </script>
+
   <RouterView />
 </template>
 
