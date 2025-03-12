@@ -13,7 +13,7 @@
       <div  class="textContainer">
         <label class="formHeader" for="email">מייל</label>
       </div>
-
+   
       <input class="prompt" type="email" id="email" v-model="formData.email" required>
     </div>
 
