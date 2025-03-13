@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm" class="form flex flex-col gap-4 w-full">
+  <form @submit.prevent="submitForm" class="form flex flex-col gap-4 w-full" data-netlify="true">
     <!-- Your form fields here -->
     <div>
       <div  class="textContainer">
