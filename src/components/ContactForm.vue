@@ -13,7 +13,7 @@
       <div  class="textContainer">
         <label class="formHeader" for="email">מייל</label>
       </div>
-   
+
       <input class="prompt" type="email" id="email" v-model="formData.email" required>
     </div>
 
@@ -30,6 +30,9 @@
 
 <script setup lang="ts">
   import { ref, reactive } from 'vue'
+  import { useGtag } from 'vue-gtag-next';
+
+  const { gtag } = useGtag();
 
   const formData = ref({
       name: '',
@@ -43,10 +46,10 @@
       // Your form submission logic here
 
       // Track the form submission event
-      this.$gtag.event('form_submission', {
-        'event_category': 'User Info',
-        'event_label': 'Landing Page Form'
-      })
+      gtag('event', 'form_submission', {
+        event_category: 'User Info',
+        event_label: 'Landing Page Form',
+      });
       isSubmitted.value = true
       formData.value =({
         name: '',
