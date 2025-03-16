@@ -24,15 +24,13 @@
 
       <input class="prompt" type="tel" id="phoneNumber" v-model="formData.phoneNumber" required />
     </div>
-    <button class="submit" type="submit">Submit</button>
+    <button class="submit" type="submit" on-click="submitForm">Submit</button>
   </form>
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive } from 'vue'
-  import { useGtag } from 'vue-gtag-next';
-
-  const { gtag } = useGtag();
+  import { ref } from 'vue'
+  import { useGtag } from "vue-gtag-next";
 
   const formData = ref({
       name: '',
@@ -42,14 +40,22 @@
 
     const isSubmitted = ref(false)
 
+  const { event } = useGtag()
+  const track = () => {
+    event( 'form_submission', {
+      event_category: 'User Info',
+      event_label: 'Landing Page Form',
+      value: 'form contact'
+    })
+  }
+
     function submitForm() {
       // Your form submission logic here
 
       // Track the form submission event
-      gtag('event', 'form_submission', {
-        event_category: 'User Info',
-        event_label: 'Landing Page Form',
-      });
+
+      track();
+
       isSubmitted.value = true
       formData.value =({
         name: '',
