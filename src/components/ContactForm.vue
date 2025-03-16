@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+import { ref, toRaw } from 'vue'
   import { useGtag } from "vue-gtag-next";
 
   const formData = ref({
@@ -45,7 +45,7 @@
     event( 'form_submission', {
       event_category: 'User Info',
       event_label: 'Landing Page Form',
-      value: 'form contact'
+      value: structuredClone(toRaw(formData.value))
     })
   }
 
