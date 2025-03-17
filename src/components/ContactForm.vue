@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, toRaw } from 'vue'
+  import { ref } from 'vue'
   //import { useGtag } from "vue-gtag-next";
 
   const formData = ref({
@@ -42,7 +42,7 @@
 
   const scriptURL = 'https://script.google.com/macros/s/AKfycbxuXSdSsm7fxiDj3Kxq1AC80w26FlnaBaFNefTBASDyUw0UNiyqJHbWdNJLSy-M7iCV-g/exec'
 
-  const form = document.forms['contact-form']
+  const form = document.forms[0]
 
   function submitForm() {
     fetch(scriptURL,
