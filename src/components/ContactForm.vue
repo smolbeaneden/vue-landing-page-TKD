@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm" method="post" action="https://script.google.com/macros/s/AKfycbwSKY4zcwKBhT_cQJnpodXprK6Y8vEZS8X3fOaORpE2ekle9AcjN52t4dWb6kN41qa8_Q/exec" class="form flex flex-col gap-4 w-full" data-netlify="true">
+  <form @submit.prevent name="contact-form" method="post" action="https://script.google.com/macros/s/AKfycbwSKY4zcwKBhT_cQJnpodXprK6Y8vEZS8X3fOaORpE2ekle9AcjN52t4dWb6kN41qa8_Q/exec" class="form flex flex-col gap-4 w-full" data-netlify="true">
     <!-- Your form fields here -->
     <div>
       <div  class="textContainer">
@@ -24,7 +24,7 @@
 
       <input class="prompt" type="tel" id="phoneNumber" name="Phone Number" v-model="formData.phoneNumber" required />
     </div>
-    <button class="submit" type="submit" on-click="submitForm">Submit</button>
+    <button class="submit" type="submit" id="submit" value="submit" @click="submitForm()">Submit</button>
   </form>
 </template>
 
@@ -38,31 +38,35 @@ import { ref, toRaw } from 'vue'
       phoneNumber: '',
     })
 
-    const isSubmitted = ref(false)
+  const isSubmitted = ref(false)
 
-  const { event } = useGtag()
-  const track = () => {
-    event( 'form_submission', {
-      event_category: 'User Info',
-      event_label: 'Landing Page Form',
-      value: structuredClone(toRaw(formData.value))
-    })
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwSKY4zcwKBhT_cQJnpodXprK6Y8vEZS8X3fOaORpE2ekle9AcjN52t4dWb6kN41qa8_Q/exec'
+
+  const form = document.forms['contact-form']
+
+  function submitForm() {
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => alert("Thank you! Form is submitted" ))
+      .then(() => {
+        isSubmitted.value = true
+        formData.value =({
+          name: '',
+          email: '',
+          phoneNumber: '',
+        })})
+      .catch(error => console.error('Error!', error.message))
   }
 
-    function submitForm() {
-      // Your form submission logic here
+  //
+  // const { event } = useGtag()
+  // const track = () => {
+  //   event( 'form_submission', {
+  //     event_category: 'User Info',
+  //     event_label: 'Landing Page Form',
+  //     value: structuredClone(toRaw(formData.value))
+  //   })
+  // }
 
-      // Track the form submission event
-
-      track();
-
-      isSubmitted.value = true
-      formData.value =({
-        name: '',
-        email: '',
-        phoneNumber: '',
-      })
-    }
 
 </script>
 
