@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRaw } from 'vue'
-  import { useGtag } from "vue-gtag-next";
+  import { ref, toRaw } from 'vue'
+  //import { useGtag } from "vue-gtag-next";
 
   const formData = ref({
       name: '',
@@ -40,11 +40,9 @@ import { ref, toRaw } from 'vue'
 
   const isSubmitted = ref(false)
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxBiz_Xwu-s0TSBQVtHGINnkMSOCtEo7rQz0_2YMWdk0txqdBzUllKqk--ua2yhC0QdXg/exec'
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxuXSdSsm7fxiDj3Kxq1AC80w26FlnaBaFNefTBASDyUw0UNiyqJHbWdNJLSy-M7iCV-g/exec'
 
   const form = document.forms['contact-form']
-
-
 
   function submitForm() {
     fetch(scriptURL,
