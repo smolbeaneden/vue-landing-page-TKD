@@ -40,13 +40,23 @@ import { ref, toRaw } from 'vue'
 
   const isSubmitted = ref(false)
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbwSKY4zcwKBhT_cQJnpodXprK6Y8vEZS8X3fOaORpE2ekle9AcjN52t4dWb6kN41qa8_Q/exec'
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxBiz_Xwu-s0TSBQVtHGINnkMSOCtEo7rQz0_2YMWdk0txqdBzUllKqk--ua2yhC0QdXg/exec'
 
   const form = document.forms['contact-form']
 
+
+
   function submitForm() {
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => alert("Thank you! Form is submitted" ))
+    fetch(scriptURL,
+      { redirect: "follow", method: 'POST', body: new FormData(form),
+    headers:
+      { "Content-Type": "text/plain" }
+    })
+      .then(response => {
+        if (response.ok) {
+          alert("Thank you! Form is submitted");
+        }
+      })
       .then(() => {
         isSubmitted.value = true
         formData.value =({
