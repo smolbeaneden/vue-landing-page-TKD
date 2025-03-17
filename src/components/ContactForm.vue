@@ -42,11 +42,11 @@
 
   const scriptURL = 'https://script.google.com/macros/s/AKfycbxuXSdSsm7fxiDj3Kxq1AC80w26FlnaBaFNefTBASDyUw0UNiyqJHbWdNJLSy-M7iCV-g/exec'
 
-  const form = document.forms[0]
+  //const form = document.forms[0]
 
   function submitForm() {
     fetch(scriptURL,
-      { redirect: "follow", method: 'POST', body: new FormData(form),
+      { redirect: "follow", method: 'POST', body: JSON.stringify(formData),
     headers:
       { "Content-Type": "text/plain" }
     })
