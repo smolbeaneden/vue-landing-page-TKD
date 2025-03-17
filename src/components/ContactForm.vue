@@ -46,7 +46,7 @@
 
   function submitForm() {
     fetch(scriptURL,
-      { redirect: "follow", method: 'POST', body: JSON.stringify(formData),
+      { redirect: "follow", method: 'POST', body: JSON.stringify(formData.value),
     headers:
       { "Content-Type": "text/plain" }
     })
