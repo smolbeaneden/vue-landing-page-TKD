@@ -1,12 +1,12 @@
 <template>
-  <form @submit.prevent="submitForm" class="form flex flex-col gap-4 w-full" data-netlify="true">
+  <form @submit.prevent="submitForm" method="post" action="https://script.google.com/macros/s/AKfycbwSKY4zcwKBhT_cQJnpodXprK6Y8vEZS8X3fOaORpE2ekle9AcjN52t4dWb6kN41qa8_Q/exec" class="form flex flex-col gap-4 w-full" data-netlify="true">
     <!-- Your form fields here -->
     <div>
       <div  class="textContainer">
         <label class="formHeader" for="name">שם מלא</label>
       </div>
 
-      <input class="prompt text-right" type="text" id="name" v-model="formData.name" required>
+      <input class="prompt text-right" type="text" id="name" name="Name" v-model="formData.name" required>
     </div>
 
     <div>
@@ -14,7 +14,7 @@
         <label class="formHeader" for="email">מייל</label>
       </div>
 
-      <input class="prompt" type="email" id="email" v-model="formData.email" required>
+      <input class="prompt" type="email" id="email" name="Email" v-model="formData.email" required>
     </div>
 
     <div>
@@ -22,7 +22,7 @@
        <label class="formHeader" for="phoneNumber">מספר טלפון</label>
       </div>
 
-      <input class="prompt" type="tel" id="phoneNumber" v-model="formData.phoneNumber" required />
+      <input class="prompt" type="tel" id="phoneNumber" name="Phone Number" v-model="formData.phoneNumber" required />
     </div>
     <button class="submit" type="submit" on-click="submitForm">Submit</button>
   </form>
