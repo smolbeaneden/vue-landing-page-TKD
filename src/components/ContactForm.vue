@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent name="contact-form" method="post" action="https://script.google.com/macros/s/AKfycbxuXSdSsm7fxiDj3Kxq1AC80w26FlnaBaFNefTBASDyUw0UNiyqJHbWdNJLSy-M7iCV-g/exec" class="form flex flex-col gap-4 w-full" data-netlify="true">
+  <form @submit.prevent="handleSubmit" name="contact-form" method="post" action="https://script.google.com/macros/s/AKfycbxuXSdSsm7fxiDj3Kxq1AC80w26FlnaBaFNefTBASDyUw0UNiyqJHbWdNJLSy-M7iCV-g/exec" class="form flex flex-col gap-4 w-full" data-netlify="true">
     <!-- Your form fields here -->
     <div>
       <div  class="textContainer">
@@ -24,12 +24,13 @@
 
       <input class="prompt" type="tel" id="phoneNumber" name="Phone Number" v-model="formData.phoneNumber" required />
     </div>
-    <button class="submit" type="submit" id="submit" value="submit" @click="submitForm()">Submit</button>
+    <button class="submit" type="submit" id="submit" value="submit" >Submit</button>
   </form>
 </template>
 
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { supabase } from '@/lib/supabaseClient.ts'
   //import { useGtag } from "vue-gtag-next";
 
   const formData = ref({
@@ -40,40 +41,27 @@
 
   const isSubmitted = ref(false)
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxuXSdSsm7fxiDj3Kxq1AC80w26FlnaBaFNefTBASDyUw0UNiyqJHbWdNJLSy-M7iCV-g/exec'
 
-  //const form = document.forms[0]
+  async function handleSubmit() {
+    try {
+      const { error } = await supabase.from("contacts").insert(formData.value);
+      if (error) {
+        throw error;
+      }
+      alert("Form submitted successfully");
 
-  function submitForm() {
-    fetch(scriptURL,
-      { redirect: "follow", method: 'POST', body: JSON.stringify(formData.value),
-    headers:
-      { "Content-Type": "text/plain" }
-    })
-      .then(response => {
-        if (response.ok) {
-          alert("Thank you! Form is submitted");
-        }
+      isSubmitted.value = true
+      formData.value =({
+        name: '',
+        email: '',
+        phoneNumber: '',
       })
-      .then(() => {
-        isSubmitted.value = true
-        formData.value =({
-          name: '',
-          email: '',
-          phoneNumber: '',
-        })})
-      .catch(error => console.error('Error!', error.message))
-  }
 
-  //
-  // const { event } = useGtag()
-  // const track = () => {
-  //   event( 'form_submission', {
-  //     event_category: 'User Info',
-  //     event_label: 'Landing Page Form',
-  //     value: structuredClone(toRaw(formData.value))
-  //   })
-  // }
+    } catch (error) {
+      console.log("Error occurred", { error });
+      alert("An error occurred");
+    }
+  }
 
 
 </script>
