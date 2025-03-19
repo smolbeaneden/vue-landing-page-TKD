@@ -24,7 +24,7 @@
 
       <input class="prompt" type="tel" id="phoneNumber" name="Phone Number" v-model="formData.phoneNumber" required />
     </div>
-    <button class="submit" type="submit" id="submit" value="submit" >Submit</button>
+    <button class="submit" type="submit" id="submit" value="submit" >{{isSubmitting}}</button>
   </form>
 </template>
 
@@ -32,6 +32,8 @@
   import { ref, toRaw } from 'vue'
   import { supabase } from '@/lib/supabaseClient.ts'
   //import { useGtag } from "vue-gtag-next";
+
+  const isSubmitting = ref("Submit");
 
   const formData = ref({
       name: '',
@@ -44,6 +46,7 @@
 
   async function handleSubmit() {
     try {
+      isSubmitting.value = "submitting...";
       const { data, error } = await supabase
         .from("Contacts")
         .insert({ name: formData.value.name, email: formData.value.email, phoneNumber: formData.value.phoneNumber })
@@ -51,7 +54,7 @@
       if (error) {
         throw error;
       }
-      alert("Form submitted successfully");
+      alert("תודה רבה! ניצור אתכם קשר בימים הקרובים:)");
 
       isSubmitted.value = true
       formData.value =({
@@ -59,12 +62,14 @@
         email: '',
         phoneNumber: '',
       })
-      return data;
+
 
     } catch (error) {
+
       console.log("Error occurred", { error });
-      alert("An error occurred");
+      alert("נכשלה שליחת הטופס");
     }
+    isSubmitting.value = "Submit";
   }
 
 
