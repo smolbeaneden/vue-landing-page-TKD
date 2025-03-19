@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, toRaw } from 'vue'
   import { supabase } from '@/lib/supabaseClient.ts'
   //import { useGtag } from "vue-gtag-next";
 
@@ -40,11 +40,11 @@
     })
 
   const isSubmitted = ref(false)
-
+  console.log(formData);
 
   async function handleSubmit() {
     try {
-      const { error } = await supabase.from("contacts").insert(formData.value);
+      const { error } = await supabase.from("contacts").insert({name: formData.value.name, email: formData.value.email, phoneNumber: formData.value.phoneNumber});
       if (error) {
         throw error;
       }
