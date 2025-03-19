@@ -45,8 +45,8 @@
   async function handleSubmit() {
     try {
       const { data, error } = await supabase
-        .from("contacts")
-        .insert({id: 1, name: formData.value.name, email: formData.value.email, phoneNumber: formData.value.phoneNumber})
+        .from("Contacts")
+        .insert({ name: formData.value.name, email: formData.value.email, phoneNumber: formData.value.phoneNumber })
         .select();
       if (error) {
         throw error;
