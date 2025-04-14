@@ -77,11 +77,13 @@
 
 <style scoped>
 
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
 .form {
   background-color: rgba(203, 184, 184, 0.47);
   padding: 2em;
   border-radius: 1em;
-  font-family: monospace;
+  font-family: 'Poppins', sans-serif;
   border-color: rgba(100, 108, 255, 0.51);
   color: white;
   border-width: 0.2em;
