@@ -17,10 +17,10 @@ body{
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  font-family: monospace;
+
 
   /* New background styles */
-  background-image: url('./pic1.jpg'); /* Replace with your image path */
+  background-image: url('./pic2.jpg'); /* Replace with your image path */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top center;
